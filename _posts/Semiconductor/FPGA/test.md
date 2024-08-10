@@ -1,0 +1,20 @@
+---
+layout: post
+related_posts: 
+title: This is test post.
+date: 2024-08-10 11:00:00 +1500
+categories:
+  - semiconductor
+  - fpga
+image:
+  path:
+---
+* * *
+* toc
+{:toc}
+
+## 이것은 테스트 포스트 입니다.
+^^
+파이팅
+## 두번째 제목
+### 안녕
