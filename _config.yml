@@ -48,12 +48,20 @@ author:
 
 # Add links to the sidebar.
 menu:
-  - title:             Example
-    url:               /example/
-  - title:             Documentation
-    url:               /docs/
-  - title:             About
-    url:               /about/
+  - title:             Semicon
+    url:               /semi/
+    submenu:
+    - title:           FPGA
+      url:             /fpga/
+  - title:             Embedded
+    url:               /embedded/
+  - title:             AI
+    url:               /ai/
+    submenu:
+    - title:           OCR
+      url:             /ocr/
+    - title:           Inpainting
+      url:             /inpainting/
 
 # Add links to the footer.
 # Typically you'll want to link to your cookie- or privacy policy (if appliable), etc..
