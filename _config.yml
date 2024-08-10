@@ -53,8 +53,10 @@ menu:
     submenu:
     - title:           FPGA
       url:             /fpga/
+
   - title:             Embedded
     url:               /embedded/
+    
   - title:             AI
     url:               /ai/
     submenu:
