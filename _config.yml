@@ -38,6 +38,10 @@ keywords:              [System Semiconductor / Embedded SW / AI]
 # It also used by the `jekyll-seo-tag` plugin.
 logo:                  /assets/img/profile.jpg
 
+# Favicon
+favicon: /assets/img/favicon.ico
+apple_touch_icon: /assets/img/logo.png
+
 # This should be the same author as first entry in `_data/authors.yml`.
 author:
   # Used by `jekyll-feed`:
