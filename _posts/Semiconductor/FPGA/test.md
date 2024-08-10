@@ -4,7 +4,7 @@ related_posts:
 title: This is test post.
 date: 2024-08-10 11:00:00 +1500
 categories:
-  - semiconductor
+  - semi
   - fpga
 image:
   path:
