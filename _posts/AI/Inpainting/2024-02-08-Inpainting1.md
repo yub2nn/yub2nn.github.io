@@ -49,13 +49,13 @@ Input Image + ( Input Image → Specular highlight detection ) → Inpainting �
 1. 수동 : 직접 찍는 방법
 2. 자동 : Active method (ex. 빛반사 구분 task (Clustering))
 
-### 5. Accuracy & FPS
+## 5. Accuracy & FPS
 
 - **Accuracy**
     1. **P2P (pixel to pixel)  
-        **: 주변 픽셀을 참고해 가장자리부터 하나씩 채워감 (Past)  
+        : 주변 픽셀을 참고해 가장자리부터 하나씩 채워감 (Past)  
         patch base & diffusion base  
-        **Image Jitter 존재 (현실감 감소)**
+        Image Jitter 존재 (현실감 감소)
     2. ****Generative model  
         ****: Dilated → (Contextual + Dilated) → Output → Global / Local Critics  
         팽창 후 밑그림을 그려서 주변 픽셀과 비교해 병렬 구조로 한번에 output (Nowadays)  
@@ -81,7 +81,7 @@ Input Image + ( Input Image → Specular highlight detection ) → Inpainting �
         너무 길면 자연스럽게 처리되지 않음
 
 ---
-### Reference
+## Reference
 
 [https://r1.community.samsung.com/t5/갤럭시-s/갤럭시-꿀-tip-포토에디터-ai-지우개-디테일하게-활용하기/td-p/22316142](https://r1.community.samsung.com/t5/%EA%B0%A4%EB%9F%AD%EC%8B%9C-s/%EA%B0%A4%EB%9F%AD%EC%8B%9C-%EA%BF%80-tip-%ED%8F%AC%ED%86%A0%EC%97%90%EB%94%94%ED%84%B0-ai-%EC%A7%80%EC%9A%B0%EA%B0%9C-%EB%94%94%ED%85%8C%EC%9D%BC%ED%95%98%EA%B2%8C-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0/td-p/22316142)
 
