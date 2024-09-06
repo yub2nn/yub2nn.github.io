@@ -37,9 +37,9 @@ categories:
 
 ![Image Inpainting (LAMA)](https://blog.kakaocdn.net/dn/DVszG/btsGFxu9p4e/6KE7LLCvwvkZ5j1WJ4q5CK/img.png)
 
---- | ---
-**Image Processing** (Denoising, Dehazing, Super Resolution) | **Inpainting**
-이미지 전체 | **RoI** 존재 = **Masking Image** **Target**을 염두하고 사용 (빛반사 등)
+| **Image Processing** (Denoising, Dehazing, Super Resolution) | **Inpainting**                                             |
+| ------------------------------------------------------------ | ---------------------------------------------------------- |
+| 이미지 전체                                                       | **RoI** 존재 = **Masking Image** **Target**을 염두하고 사용 (빛반사 등) |
 
 Input Image + ( Input Image → Specular highlight detection ) → Inpainting → Output Image
 
@@ -52,20 +52,20 @@ Input Image + ( Input Image → Specular highlight detection ) → Inpainting �
 ## 5. Accuracy & FPS
 
 - **Accuracy**
-    1. **P2P (pixel to pixel)  
+    1. **P2P (pixel to pixel)** 
         : 주변 픽셀을 참고해 가장자리부터 하나씩 채워감 (Past)  
         patch base & diffusion base  
         Image Jitter 존재 (현실감 감소)
-    2. **Generative model  
+    2. **Generative model**  
         : Dilated → (Contextual + Dilated) → Output → Global / Local Critics  
         팽창 후 밑그림을 그려서 주변 픽셀과 비교해 병렬 구조로 한번에 output (Nowadays)  
-        Hallucination risk**  
+        Hallucination risk  
         
 
-	-  **GANs 구조  
+	-  **GANs 구조** 
         Local Discriminator → Masking 영역 판별  
         Global Discriminator → 이미지 자체 판별
-    * **CNN 구조  
+    * **CNN 구조** 
         Convolution → 주변 픽셀 이용해 연산x
 
 > **Dilated 하는 이유 ?**  
@@ -73,9 +73,9 @@ Input Image + ( Input Image → Specular highlight detection ) → Inpainting �
 
 - **FPS**
 ![Video Inpainting (E2FGVI)](https://blog.kakaocdn.net/dn/dl3NHx/btsGFE17HrY/m56keJpP0ktW8jjY5KLKR0/img.png)
-1. **Video Inpainting  
+1. **Video Inpainting**   
     : HW의 발전 + Neural Nets 로 인해 빨라짐  
-    - **Sampling Period
+    - **Sampling Period** 
         시간 간격 기준 (0.01 ~ 0.001초 사이) 적절히 선정  
         너무 짧으면 영상이 변하지 않는 것으로 인식  
         너무 길면 자연스럽게 처리되지 않음
