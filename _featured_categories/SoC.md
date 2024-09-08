@@ -10,7 +10,7 @@ slug: soc
 
 # (Optional) Write a short (~150 characters) description of this featured tag.
 description: >
-  System Semiconductor SoC
+  System Semiconductor SoC Design
 
 # (Optional) You can disable grouping posts by date.
 # no_groups: true

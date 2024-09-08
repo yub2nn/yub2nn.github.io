@@ -10,7 +10,7 @@ slug: semicon
 
 # (Optional) Write a short (~150 characters) description of this featured tag.
 description: >
-  System Semiconductor Studying
+  System Semiconductor
 
 # (Optional) You can disable grouping posts by date.
 # no_groups: true

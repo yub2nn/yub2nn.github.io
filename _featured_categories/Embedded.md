@@ -10,7 +10,7 @@ slug: embedded
 
 # (Optional) Write a short (~150 characters) description of this featured tag.
 description: >
-  Embedded SW studying
+  Embedded SW using C language
 
 # (Optional) You can disable grouping posts by date.
 # no_groups: true
