@@ -39,7 +39,7 @@ usec, sec, min은 system clock 인 100MHz를 분주하여 사용하도록 한다
 
 ## 3. 동작 설계
 
-#### 1. TOP
+### 1. TOP
 ```verilog
 module stop_watch_top(
     input btnr, // Run Mode Input
@@ -204,7 +204,8 @@ end
 
 endmodule
 ```
-#### 2. State Control
+
+### 2. State Control
 ```verilog
 module state_ctl(
     input rst,
@@ -291,6 +292,65 @@ begin
         end
 end
 
+
+endmodule
+```
+
+- debounce  
+      
+    스위치 chattering 현상을 고려하여 debounce를 하는 코드를 작성하였다.    
+    system clock인 100MHz를 1kHz로 분주한 후, counter를 이용해 30번 count해 안정구간에 진입했음을 확인한다.
+
+```verilog
+module debounce(
+    input rst, clk,
+    input btnr,
+    output reg key
+    );
+    
+reg [15:0] cnt; 
+reg pls_1k0, pls_1k1;
+
+reg btn0, btn1;
+reg [4:0] btn_cnt; 
+
+always@(negedge rst, posedge clk)
+begin
+    if (rst == 0) 
+        begin
+            btn_cnt <= 0;   btn0 <= 0;   btn1 <= 0; key <= 0;
+        end
+    else if (pls_1k0 & ~pls_1k1) // rising edge
+        begin
+            btn0 <= btnr;   btn1 <= btn0;
+            if (btn0 ^ btn1)
+                btn_cnt <= 0;
+            else if (btn_cnt < 30)
+                btn_cnt <= btn_cnt + 1;
+            // 
+            if (btn_cnt == 29)
+                key <= btn1;
+        end
+end
+
+always@(negedge rst, posedge clk)
+begin
+    if (rst == 0) 
+        begin
+            cnt <= 0;   pls_1k0 <= 0;   pls_1k1 <= 0;
+        end
+    else 
+        begin
+            pls_1k1 <= pls_1k0; 
+            if (cnt < 49999) 
+                cnt <= cnt + 1;
+            else 
+                begin
+                    cnt <= 0;
+                    pls_1k0 <= ~pls_1k0; // pls_1k0 toggle
+                end
+        end
+end
 
 endmodule
 ```
