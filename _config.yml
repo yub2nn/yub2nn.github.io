@@ -55,8 +55,10 @@ menu:
   - title:             Semiconductor
     url:               /semiconductor/
     submenu:
-    - title:           FPGA
-      url:             /fpga/
+    - title:           Verilog
+      url:             /verilog/
+    - title:           SoC
+      url:             /soc/
 
   - title:             Embedded
     url:               /embedded/

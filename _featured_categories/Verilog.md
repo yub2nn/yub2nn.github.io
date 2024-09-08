@@ -3,14 +3,14 @@
 layout: list
 
 # The title of the tag's page.
-title: FPGA
+title: Verilog
 
 # The name of the tag, used in a post's front matter (e.g. tags: [<slug>]).
-slug: fpga
+slug: verilog
 
 # (Optional) Write a short (~150 characters) description of this featured tag.
 description: >
-  System Semiconductor Studying
+  FPGA using Verilog HDL
 
 # (Optional) You can disable grouping posts by date.
 # no_groups: true
