@@ -428,7 +428,6 @@ run 35us
 
 ### 3. Mode & Select Signal
 #### Mode Control Generator
-- ctl_sig_gen.v
 
 ```verilog
 module ctl_sig_gen(
@@ -497,7 +496,6 @@ endmodule
 ```
 
 #### Select Signal Generator
-- sel_sig_gen.v
 
 ```verilog
 module sel_sig_gen(
@@ -618,4 +616,175 @@ run 11ms
 
 ![[Pasted image 20240908143806.png]]
 
-### 
+### 4. StopWatch Counter
+
+```verilog
+module stop_watch_cnt(
+    input rst, clk, // 100MHz Clock Input
+    input clr,
+    input plsi, // 100Hz Pulse input. count up at falling edge of PLSI
+    output [6:0] usec,
+    output [5:0] sec,
+    output [5:0] min
+    );
+    
+wire pls_sec, pls_min, pls_hr;
+
+// under sec counter (00~99)
+pls_cnt_100 u_usec_cnt
+(
+.rst    (rst    ),
+.clk    (clk    ),
+.clr    (clr    ),
+.plsi   (plsi   ),
+.plso   (pls_sec),
+.qout   (usec   )
+);
+
+// sec counter (00~59)
+pls_cnt_60 u_sec_cnt
+(
+.rst    (rst    ),
+.clk    (clk    ),
+.clr    (clr    ),
+.plsi   (pls_sec),
+.plso   (pls_min),
+.qout   (sec    )
+);
+
+// min counter (00~59)
+pls_cnt_60 u_min_cnt
+(
+.rst    (rst    ),
+.clk    (clk    ),
+.clr    (clr    ),
+.plsi   (pls_min),
+.plso   (pls_hr ),
+.qout   (min    )
+);
+
+endmodule
+```
+
+pulse counter 60, 100 모듈을 만든 후 이를 under sec counter, sec, min counter로 활용한다.
+qout 으로 숫자 count 0~99(0~59),  plso 로 주기 100(60)의 1clock pulse 제공
+
+- pls_cnt_60
+
+```verilog
+module pls_cnt_60(
+    input rst,clk,
+    input clr,plsi,
+    output reg plso,
+    output reg [5:0] qout
+    );
+    
+reg cl0,cl1;
+reg pl0,pl1;
+
+always@(negedge rst, posedge clk)
+begin
+    if (rst == 0)
+        begin
+            cl0 <= 0;  cl1 <= 0;  pl0 <= 0;   pl1 <= 0;  
+            plso <= 0;
+            qout <= 0;       
+        end
+    else 
+        begin
+            cl0 <= clr;   cl1 <= cl0;
+            pl0 <= plsi;  pl1 <= pl0;   // 1) reserve code
+            if (cl0 & ~cl1)         // Rising Edge of CLR
+                begin
+                    pl0 <= 0;   pl1 <= 0;   // 2) reset pl0, pl1 0. ignore 1)
+                    qout <= 0;  plso <= 0;
+                end
+            else if (pl1 & ~pl0)    // Falling Edge of PLSI
+                begin
+                    if (qout >= 59)
+                        begin
+                            qout <= 0;
+                            plso <= 0;
+                        end
+                    else
+                        begin
+                            qout <= qout + 1;
+                            if (qout < 29)
+                                plso <= 0;
+                            else
+                                plso <= 1;
+                        end
+                end
+        end
+end
+endmodule
+```
+
+- pls_cnt_100
+
+```verilog
+module pls_cnt_100(
+    input rst,clk,
+    input clr,plsi,
+    output reg plso,
+    output reg [6:0] qout
+    );
+    
+reg cl0,cl1;
+reg pl0,pl1;
+
+always@(negedge rst, posedge clk)
+begin
+    if (rst == 0)
+        begin
+            cl0 <= 0;  cl1 <= 0;  pl0 <= 0;   pl1 <= 0;  
+            plso <= 0;
+            qout <= 0;       
+        end
+    else 
+        begin
+            cl0 <= clr;   cl1 <= cl0;
+            pl0 <= plsi;  pl1 <= pl0;
+            if (cl0 & ~cl1)         // Rising Edge of CLR
+                begin
+                    pl0 <= 0;   pl1 <= 0;
+                    qout <= 0;  plso <= 0;
+                end
+            else if (pl1 & ~pl0)    // Falling Edge of PLSI
+                begin
+                    if (qout >= 99)
+                        begin
+                            qout <= 0;
+                            plso <= 0;
+                        end
+                    else
+                        begin
+                            qout <= qout + 1;
+                            if (qout < 49)
+                                plso <= 0;
+                            else
+                                plso <= 1;
+                        end
+                end
+        end
+end
+endmodule
+```
+
+#### Simulation
+
+- my_stop_watch_cnt.tcl
+
+```
+restart
+add_force rst {1 0ns} {0 1ps} {1 50ns}
+add_force clk {0 0ns} {1 5ns} -repeat_every 10ns
+add_force plsi {0 0ns} {1 500ns} -repeat_every 1000ns
+add_force clr 0
+run 10ms
+```
+
+![[Pasted image 20240908145126.png]]
+
+### 5. HEX to BCD
+
