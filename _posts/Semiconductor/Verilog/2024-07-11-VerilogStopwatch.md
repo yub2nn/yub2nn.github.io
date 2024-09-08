@@ -298,6 +298,7 @@ endmodule
 #### Simulation
 
 - my_state_ctl.tcl
+
 ```
 restart
 add_force btnl {0 0ns} {1 1ps} {0 10ns}
@@ -337,6 +338,7 @@ source D:/fpga/2024a/pjt_lab/pjt_lab.srcs/sources_1/new/clr_ctl.tcl
 ```
 
 - disp_mode_ctl.tcl
+
 ```
 add_force btnd 0
 run 35us
@@ -352,6 +354,7 @@ run 35us
 ```
 
 - clr_ctl.tcl
+
 ```
 add_force btnu 0
 run 35us
@@ -361,4 +364,5 @@ add_force btnu 0
 run 35us
 ```
 
+![](https://blog.kakaocdn.net/dn/lpC5U/btsIpGejXfQ/jaQg1GQ1AbEu50eFZtbyJ0/img.png)
 
